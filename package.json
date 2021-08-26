@@ -1,0 +1,23 @@
+{
+  "name": "tfm",
+  "version": "1.0.0",
+  "description": "const Iota = require('@iota/core');\r const iota = Iota.composeAPI({\r provider: 'https://nodes.devnet.iota.org:443'\r });\r const depth = 3;\r const minimumWeightMagnitude = 9;\r const address =\r 'HEQLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWOR99D';\r const seed =\r 'PUEOTSEITFEVEWCWBTSIZM9NKRGJEIMXTULBACGFRQK9IMGICLBKW9TTEVSDQMGWKBXPVCBMMCXWMNPDX';\r const message = JSON.stringify({\"message\": \"Hello world\"});\r const messageInTrytes = Converter.asciiToTrytes(message);\r const transfers = [\r {\r     value: 0,\r     address: address,\r     message: messageInTrytes\r }\r ];\r Iota.prepareTransfers(seed, transfers)\r     .then(trytes => {\r         return iota.sendTrytes(trytes, depth, minimumWeightMagnitude);\r     })\r     .then(bundle => {\r         console.log(bundle[0].hash)\r     })\r     .catch(err => {\r         console.error(err)\r     });",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yosleidy/TFM.git"
+  },
+  "author": "Yosleidy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yosleidy/TFM/issues"
+  },
+  "homepage": "https://github.com/Yosleidy/TFM#readme",
+  "dependencies": {
+    "@iota/converter": "^1.0.0-beta.30",
+    "@iota/core": "^1.0.0-beta.30"
+  }
+}
