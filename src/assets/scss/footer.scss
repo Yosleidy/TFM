@@ -1,0 +1,29 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+  background-color: #eeeeee;
+  padding: 10px;
+  width: 100%;
+  font-size: 14px;
+  color: rgb(100, 100, 100);
+
+  &.cookie-bar-bottom-bar {
+    bottom: 70px;
+  }
+
+  a {
+    text-decoration: none;
+
+    &:visited {
+      color: rgb(100, 100, 100);
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .footer {
+    padding: 5px;
+    font-size: 12px;
+  }
+}

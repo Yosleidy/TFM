@@ -1,23 +1,49 @@
 {
-  "name": "tfm",
-  "version": "1.0.0",
-  "description": "const Iota = require('@iota/core');\r const iota = Iota.composeAPI({\r provider: 'https://nodes.devnet.iota.org:443'\r });\r const depth = 3;\r const minimumWeightMagnitude = 9;\r const address =\r 'HEQLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWOR99D';\r const seed =\r 'PUEOTSEITFEVEWCWBTSIZM9NKRGJEIMXTULBACGFRQK9IMGICLBKW9TTEVSDQMGWKBXPVCBMMCXWMNPDX';\r const message = JSON.stringify({\"message\": \"Hello world\"});\r const messageInTrytes = Converter.asciiToTrytes(message);\r const transfers = [\r {\r     value: 0,\r     address: address,\r     message: messageInTrytes\r }\r ];\r Iota.prepareTransfers(seed, transfers)\r     .then(trytes => {\r         return iota.sendTrytes(trytes, depth, minimumWeightMagnitude);\r     })\r     .then(bundle => {\r         console.log(bundle[0].hash)\r     })\r     .catch(err => {\r         console.error(err)\r     });",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Yosleidy/TFM.git"
-  },
-  "author": "Yosleidy",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Yosleidy/TFM/issues"
-  },
-  "homepage": "https://github.com/Yosleidy/TFM#readme",
+  "name": "iota-mam-explorer",
+  "version": "2.0.0",
+  "description": "IOTA MAM Explorer",
+  "keywords": [
+    "iota",
+    "mam",
+    "mam explorer"
+  ],
+  "license": "MIT",
+  "author": "Alexey Sobolev <sobolev@mail.de> (https://github.com/sobolev-alexey)",
   "dependencies": {
-    "@iota/converter": "^1.0.0-beta.30",
-    "@iota/core": "^1.0.0-beta.30"
-  }
+    "@iota/converter": "^1.0.0-beta.8",
+    "@iota/mam": "^0.7.3",
+    "crypto": "^1.0.1",
+    "highlightjs": "^9.12.0",
+    "iota.lib.js": "^0.5.3",
+    "lodash.get": "^4.4.2",
+    "mam.client.js": "iotaledger/mam.client.js",
+    "node-sass": "^4.11.0",
+    "qrcode": "^1.3.3",
+    "query-string": "^6.2.0",
+    "react": "^16.8.1",
+    "react-cookie": "^3.0.8",
+    "react-dom": "^16.8.1",
+    "react-ga": "^2.5.7",
+    "react-md": "^1.9.2",
+    "react-scripts": "2.1.3",
+    "webfontloader": "^1.6.28"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "engines": {
+    "node": ">=6.0"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

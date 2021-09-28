@@ -1,0 +1,11 @@
+# dependencies
+/node_modules
+
+# build artifacts
+/build
+.firebase
+
+# misc
+.DS_Store
+
+*.log
