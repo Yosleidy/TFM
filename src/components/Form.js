@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { event } from 'react-ga';
 import {
   Autocomplete,
@@ -10,8 +10,8 @@ import {
   FontIcon,
 } from 'react-md';
 import knownNodes from '../knownNodes.json';
-import {encriptar} from '../encriptar.js';
-
+import CryptoJS from 'crypto-js';
+import ReactDOM from 'react-dom';
 
 const MODE = ['public', 'restricted', 'private'];
 
@@ -25,6 +25,7 @@ class Form extends Component {
     providerError: false,
     rootError: false,
     encryptkeyError: false,
+    encryptedInformationError: false,
     showSideKeyInpit: false,
     filteredData: [],
     provider: [...knownNodes],
@@ -92,10 +93,44 @@ class Form extends Component {
       });
     }
   };
+ uncrypt = event => {
+  const text=this.encryptedInformation.value;
+  const password= this.encryptkey.value;
+const decifrar=(text,password)=> {
+var bytes=CryptoJS.AES.decrypt(text,password);
+var textodecifrado=bytes.toString(CryptoJS.enc.Utf8);
+
+function Welcome(props) {
+  return  <Fragment> <h1 style={{
+    fontSize: 30,
+    fontWeight: 900,
+    padding: 40,
+    textAlign: "center",
+    background: "#f7df1e",
+    color: "#3c3a2d"
+  }}>Texto Decifrado:</h1>
+  <p
+        style={{
+          fontWeight: 300,
+          textAlign: "center"
+        }}
+      >{props.name}
+      </p>
+              </Fragment>
+}
+
+const element = <Welcome name={textodecifrado} />;
+ReactDOM.render(
+  element,
+  document.getElementById('root')
+);
+ }
+ decifrar(text,password);
+ }
 
   publicIOTA = event => {
     event.preventDefault();
-    const newCustomer = {};
+    const newCustomer={};
     const nombre = this.name.value;
     const apellidos= this.lastname.value;
     const años= this.yearsexperience.value;
@@ -107,12 +142,79 @@ newCustomer['nombre'] = nombre;
     newCustomer['años_experiencia'] = años;
     newCustomer['precio'] = precio;
     newCustomer['titulación'] = titulación;
-    const texto = JSON.stringify(newCustomer);
-    const password = this.encryptkey.value;
+      const password=this.encryptkey.value;
+      const text=JSON.stringify(newCustomer);
+      
 
+      const IOTA = require('iota.lib.js');
+  const Mam = require('@iota/mam');
+
+  const iota = new IOTA({ provider: 'https://nodes.devnet.iota.org:443' });
+
+  const MODE = 'public'; // public, private or restricted
+  const SECURITYLEVEL = 3; // 1, 2 or 3
+
+  // Ininicializar MAM State
+  let mamState = Mam.init(iota, undefined, SECURITYLEVEL);
+
+  // Establecer el modo del canal
+  mamState = Mam.changeMode(mamState, MODE);
+
+  async function publish(packet) {
+    // Crear MAM Payload
+    const trytes = iota.utils.toTrytes(JSON.stringify(packet));
+    const message = Mam.create(mamState, trytes);
+
+    // Guardar el nuevo mamState
+    mamState = message.state;
+    console.log('Root: ', message.root);
+    console.log('Address: ', message.address);
+
+    // Adjuntar el payload.
+    await Mam.attach(message.payload, message.address, 3, 9);
+    const aux=message.root;
     
-    var valor=encriptar(texto,password);
-    alert(valor);
+    function Welcome(props) {
+      return <Fragment>
+       <h1 style={{
+        fontSize: 30,
+        fontWeight: 900,
+        padding: 40,
+        textAlign: "center",
+        background: "#f7df1e",
+        color: "#3c3a2d"
+      }}> Hash de la transacción:</h1>
+      <p
+        style={{
+          fontWeight: 300,
+          textAlign: "center"
+        }}
+      >{props.name}
+      </p>
+              </Fragment>
+    }
+    
+    const element = <Welcome name={aux} />;
+    ReactDOM.render(
+      element,
+      document.getElementById('root')
+    );
+    
+    
+      }
+  async function enviardatos(encrypted) {
+    publish(encrypted);
+  
+  }
+  
+  const cifrar= (text, password) =>{
+    var encrypted = CryptoJS.AES.encrypt(text,password).toString();
+     enviardatos(encrypted);
+      
+        };
+   cifrar(text,password);
+  
+           
   };
 
   validate = () => {
@@ -125,13 +227,15 @@ newCustomer['nombre'] = nombre;
       encryptkeyError: !this.encryptkey.value,
       providerError: !this.provider.value,
       rootError: !this.root.value,
+      encryptedInformationError: !this.encryptedInformation.value,
+      
     });
 
     return !this.provider.value || !this.root.value;
   };
   
   render() {
-    const { filteredData, nameError, lastnameError, academictitleError, yearsexperienceError, priceError, encryptkeyError, providerError, rootError, showSideKeyInpit, providerValue } = this.state;
+    const { filteredData, nameError, lastnameError, academictitleError, yearsexperienceError, priceError, encryptkeyError, encryptedInformationError, providerError, rootError, showSideKeyInpit, providerValue } = this.state;
     const { showLoader } = this.props;
 
     const selectFieldProps = {
@@ -213,6 +317,19 @@ newCustomer['nombre'] = nombre;
             errorText="This field is required."
             onChange={this.validate}
           />
+<TextField
+            ref={encryptedInformation => (this.encryptedInformation = encryptedInformation)}
+            id="encryptedInformation"
+            label="encrypted information"
+            required
+            type="text"
+            error={this.encryptedInformation}
+            errorText="This field is required."
+            onChange={this.validate}
+          />
+
+
+
           <TextField
             ref={root => (this.root = root)}
             id="root"
@@ -260,12 +377,12 @@ newCustomer['nombre'] = nombre;
         <div>
           <CardActions className={`cta md-cell md-cell--12 ${showLoader ? 'hidden' : ''}`}>
           <Button secondary raised disabled={nameError || lastnameError || academictitleError || yearsexperienceError || priceError || encryptkeyError} onClick={this.publicIOTA}>
-              Public
+          Post information
             </Button>
             <Button secondary raised disabled={providerError || rootError} onClick={this.submit}>
-              Fetch(información cifrada)
+              Fetch(datos cifrados)
             </Button>
-            <Button secondary raised onClick={this.uncrypt}>
+            <Button secondary raised disabled={encryptkeyError || encryptedInformationError} onClick={this.uncrypt}>
               Uncrypt
             </Button>
           </CardActions>

@@ -13,6 +13,8 @@
     "@iota/converter": "^1.0.0-beta.8",
     "@iota/mam": "^0.7.3",
     "crypto": "^1.0.1",
+    "crypto-browserify": "^3.12.0",
+    "crypto-js": "^4.1.1",
     "highlightjs": "^9.12.0",
     "iota.lib.js": "^0.5.3",
     "lodash.get": "^4.4.2",
@@ -45,5 +47,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "babel-plugin-rewrite-require": "^1.14.5"
+  }
 }

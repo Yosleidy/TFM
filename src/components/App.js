@@ -10,6 +10,8 @@ import Footer from './Footer';
 import Form from './Form';
 import Disclaimer from './Disclaimer';
 
+
+
 class App extends Component {
   state = {
     messages: [],
@@ -20,6 +22,7 @@ class App extends Component {
   componentDidMount = () => {
     if (window.location.search) {
       this.onSubmit(queryString.parse(window.location.search));
+      
     }
   };
 
@@ -49,6 +52,8 @@ class App extends Component {
     fetch(provider, root, mode, key, this.appendToMessages, this.fetchComplete);
   };
 
+
+
   render() {
     const { messages, showLoader, qrcode } = this.state;
     return (
@@ -61,6 +66,7 @@ class App extends Component {
           </div>
           {messages.length > 0 ? <List messages={messages} /> : null}
         </div>
+      
         <Disclaimer />
         <Footer />
       </div>
