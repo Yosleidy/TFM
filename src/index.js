@@ -7,6 +7,8 @@ import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import { trackingID } from './config.json';
 import './assets/scss/index.scss';
+import 'bootstrap/scss/bootstrap.scss'
+
 
 WebFontLoader.load({
   google: {

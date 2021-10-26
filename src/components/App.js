@@ -1,77 +1,34 @@
-import React, { Component } from 'react';
-import ReactGA from 'react-ga';
-import queryString from 'query-string';
-import QRCode from 'qrcode';
-import { fetch } from '../utils/MAM';
-import List from './List';
-import Loader from './Loader';
+import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+import Otro from './Otro';
+import './App.scss';
+import Enviar from '../paginas/Enviar';
+import Recuperar from './Recuperar';
+import Desencriptar from '../paginas/Desencriptar';
+import EnvioOrga from '../paginas/EnvioOrga';
 import Header from './Header';
-import Footer from './Footer';
-import Form from './Form';
-import Disclaimer from './Disclaimer';
 
+  function App(){
 
+       
+   return (
+      <Router>
+        <Header/>
 
-class App extends Component {
-  state = {
-    messages: [],
-    showLoader: false,
-    qrcode: null
-  };
-
-  componentDidMount = () => {
-    if (window.location.search) {
-      this.onSubmit(queryString.parse(window.location.search));
-      
-    }
-  };
-
-  appendToMessages = message => this.setState({ messages: [...this.state.messages, message] });
-
-  fetchComplete = () => this.setState({ showLoader: false });
-
-  generateQR = async (root, provider, mode, key = null) => {
-    try {
-      let url = `${window.location.origin}/?provider=${provider}&mode=${mode}&root=${root}`;
-      url = key ? `${url}&key=${key}` : url;
-      return await QRCode.toDataURL(url);
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  onSubmit = async ({ provider, root, mode, key }) => {
-    if (this.state.showLoader) return;
-    const qrcode = await this.generateQR(root, provider, mode, key);
-    this.setState({ showLoader: true, messages: [], qrcode });
-    ReactGA.event({
-      category: 'Fetch',
-      action: 'MAM Fetch',
-      label: `Provider ${provider}, mode: ${mode}`
-    });
-    fetch(provider, root, mode, key, this.appendToMessages, this.fetchComplete);
-  };
-
-
-
-  render() {
-    const { messages, showLoader, qrcode } = this.state;
-    return (
-      <div className="app">
-        <Header qrcode={qrcode} />
-        <div className="content">
-          <Form onSubmit={this.onSubmit} showLoader={showLoader} />
-          <div className={`loaderWrapper ${showLoader ? '' : 'hidden'}`}>
-            <Loader showLoader={showLoader} />
-          </div>
-          {messages.length > 0 ? <List messages={messages} /> : null}
-        </div>
-      
-        <Disclaimer />
-        <Footer />
-      </div>
+       <div className="flex">
+       <Otro/>
+       <div className="content">
+        < Route path="/" exact={true} component={Enviar}/>
+        < Route path="/Recuperar" exact={true} component={Recuperar}/>
+        < Route path="/Desencriptar" exact={true} component={Desencriptar}/>
+        < Route path="/EnvioOrga" exact={true} component={EnvioOrga}/>
+        
+       </div>
+       </div>
+      </Router>
     );
   }
-}
+
 
 export default App;
