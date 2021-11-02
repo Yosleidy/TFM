@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactGA from 'react-ga';
 import queryString from 'query-string';
-import QRCode from 'qrcode';
+
 import { fetch } from '../utils/MAM';
 import List from './List';
 import Loader from './Loader';
@@ -14,7 +14,7 @@ class Recuperar extends Component {
   state = {
     messages: [],
     showLoader: false,
-    qrcode: null
+    
   };
 
   componentDidMount = () => {
@@ -28,20 +28,12 @@ class Recuperar extends Component {
 
   fetchComplete = () => this.setState({ showLoader: false });
 
-  generateQR = async (root, provider, mode, key = null) => {
-    try {
-      let url = `${window.location.origin}/?provider=${provider}&mode=${mode}&root=${root}`;
-      url = key ? `${url}&key=${key}` : url;
-      return await QRCode.toDataURL(url);
-    } catch (err) {
-      console.error(err);
-    }
-  }
+ 
 
   onSubmit = async ({ provider, root, mode, key }) => {
     if (this.state.showLoader) return;
-    const qrcode = await this.generateQR(root, provider, mode, key);
-    this.setState({ showLoader: true, messages: [], qrcode });
+   
+    this.setState({ showLoader: true, messages: [] });
     ReactGA.event({
       category: 'Fetch',
       action: 'MAM Fetch',

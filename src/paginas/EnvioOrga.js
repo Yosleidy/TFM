@@ -14,6 +14,7 @@ import {
 
 const moment = require('moment');
 var aux = '';
+
 class EnvioOrga extends Component {
 
 
@@ -63,9 +64,10 @@ class EnvioOrga extends Component {
 
     const MODE = 'public'; // public, private or restricted
     const SECURITYLEVEL = 3; // 1, 2 or 3
-
+    const seed =
+    'PUEOTSEITFEVEWCWBTSIZM9NKRGJEIMXTULBACGFRQK9IMGICLBKW9TTEVSDQMGWKBXPVCBMMCXWMNPDX';
    //  Ininicializar MAM State
-    let mamState = Mam.init(iota, undefined, SECURITYLEVEL);
+    let mamState = Mam.init(iota, seed, SECURITYLEVEL);
 
     // Establecer el modo del canal
   mamState = Mam.changeMode(mamState, MODE);
@@ -82,12 +84,13 @@ class EnvioOrga extends Component {
 
       // Adjuntar el payload.
       await Mam.attach(message.payload, message.address, 3, 9);
-      aux = message.root;
       
+      aux = message.root;
+     
       handleShow();
-
+      
     }
-
+    
     const handleShow = () => {
 
       this.setState({ active: true });
@@ -198,7 +201,7 @@ class EnvioOrga extends Component {
         </div>
         <Modal active={this.state.active} toggle={toggle}>
           <h1 style={{ fontSize: 20 }} >Hash de la transacción:</h1>
-          <p style={{ overflowWrap: 'break-word' }}> {aux}</p>
+          <p style={{ overflowWrap: 'break-word' }}> {aux} </p>
         </Modal>
       </div>
 

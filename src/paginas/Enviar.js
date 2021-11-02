@@ -61,81 +61,39 @@ class Enviar extends Component {
     const password = this.encryptkey.value;
     const text = JSON.stringify(newCustomer);
 
-    const Iota = require('@iota/core');
-    const Converter = require('@iota/converter');
-    const iota = Iota.composeAPI({
-      provider: 'https://nodes.devnet.iota.org:443'
-      });
-
-      const depth = 3;
-      const minimumWeightMagnitude = 9;
-      const address =this.root.value;
-
-      const seed =
-'PUEOTSEITFEVEWCWBTSIZM9NKRGJEIMXTULBACGFRQK9IMGICLBKW9TTEVSDQMGWKBXPVCBMMCXWMNPDX';
-      
-
-    
-        async function publish(packet) {
-          const messageInTrytes = Converter.asciiToTrytes(packet);
-          const transfers = [
-            {
-                value: 0,
-                address: address,
-                message: messageInTrytes
-            }
-            ];
-        iota.prepareTransfers(seed, transfers)
-    .then(trytes => {
-        return iota.sendTrytes(trytes, depth, minimumWeightMagnitude);
-    })
-    .then(bundle => {
-        aux=bundle[0].hash;
-        handleShow();
-    })
-    .catch(err => {
-        console.error(err)
-    });
    
-  }
+const MODE = 'public'; // public, private or restricted
+    const SECURITYLEVEL = 3; // 1, 2 or 3
 
-
-
-
-    //const IOTA = require('iota.lib.js');
-   // const Mam = require('@iota/mam');
-
-  //  const iota = new IOTA({ provider: 'https://nodes.devnet.iota.org:443' });
-
- //   const MODE = 'public'; // public, private or restricted
- //   const SECURITYLEVEL = 3; // 1, 2 or 3
-
-    // Ininicializar MAM State
-   // let mamState = Mam.init(iota, undefined, SECURITYLEVEL);
+    const IOTA = require('iota.lib.js');
+   
+    const Mam = require('@iota/mam');
+    const seed =
+    'PUEOTSEITFEVEWCWBTSIZM9NKRGJEIMXTULBACGFRQK9IMGICLBKW9TTEVSDQMGWKBXPVCBMMCXWMNPDX';
     
-
-    // Establecer el modo del canal
-  //  mamState = Mam.changeMode(mamState, MODE);
-
-    
-  // mamState =  Mam.subscribe(iota, root1, 'public');
-
-  // async function publish(packet) {
-
-  //    const trytes = iota.utils.toTrytes(JSON.stringify(packet));
-    //  const message = Mam.create(mamState, trytes);
+const iota = new IOTA({ provider: 'https://nodes.devnet.iota.org:443' });
 
 
-  //    mamState = message.state;
+    let mamState = Mam.init(iota, seed, SECURITYLEVEL);
+    mamState = Mam.changeMode(mamState, MODE);
+    mamState= Mam.subscribe(mamState, root1, MODE);
+      //mamState=Mam.listen(mamState, 'nuevo mensaje');
+    async function publish(packet) {
+
+   const trytes = iota.utils.toTrytes(JSON.stringify(packet));
+    const message = Mam.create(mamState, trytes);
 
 
-      // Adjuntar el payload.
-   //   await Mam.attach(message.payload, message.address, 3, 9);
-  //    aux = message.root;
+    mamState = message.state;
+
+   
+  
+    await Mam.attach(message.payload,root1, 3, 9);
+    aux = message.root;
       
-     // handleShow();
+      handleShow();
 
-   // }
+    }
 
     const handleShow = () => {
 
