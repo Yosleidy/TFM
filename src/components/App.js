@@ -8,10 +8,11 @@ import Recuperar from './Recuperar';
 import Desencriptar from '../paginas/Desencriptar';
 import EnvioOrga from '../paginas/EnvioOrga';
 import Header from './Header';
+import Confirmacion from '../paginas/ConfirmacionOfertas';
 
   function App(){
 
-       
+    
    return (
       <Router>
         <Header/>
@@ -23,8 +24,8 @@ import Header from './Header';
         < Route path="/Recuperar" exact={true} component={Recuperar}/>
         < Route path="/Desencriptar" exact={true} component={Desencriptar}/>
         < Route path="/EnvioOrga" exact={true} component={EnvioOrga}/>
-        
-       </div>
+        < Route path="/Confirmacion" exact={true} component={Confirmacion}/>
+         </div>
        </div>
       </Router>
     );

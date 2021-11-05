@@ -62,38 +62,48 @@ class Enviar extends Component {
     const text = JSON.stringify(newCustomer);
 
    
-const MODE = 'public'; // public, private or restricted
-    const SECURITYLEVEL = 3; // 1, 2 or 3
 
-    const IOTA = require('iota.lib.js');
-   
-    const Mam = require('@iota/mam');
     const seed =
-    'PUEOTSEITFEVEWCWBTSIZM9NKRGJEIMXTULBACGFRQK9IMGICLBKW9TTEVSDQMGWKBXPVCBMMCXWMNPDX';
+    'REYOTSEITFEVEWCWBTSIZM9NKRGJEIMXTULBACGFRQK9IMGICLBKW9TTEVSDQMGWKBXPVCBMMCXWMNPDX';
     
-const iota = new IOTA({ provider: 'https://nodes.devnet.iota.org:443' });
+    
+    
 
 
-    let mamState = Mam.init(iota, seed, SECURITYLEVEL);
-    mamState = Mam.changeMode(mamState, MODE);
-    mamState= Mam.subscribe(mamState, root1, MODE);
-      //mamState=Mam.listen(mamState, 'nuevo mensaje');
-    async function publish(packet) {
-
-   const trytes = iota.utils.toTrytes(JSON.stringify(packet));
-    const message = Mam.create(mamState, trytes);
+const Converter = require('@iota/converter');
+const Iota = require('@iota/core');
+const iota1 = Iota.composeAPI({provider:'https://nodes.devnet.iota.org:443'});
 
 
-    mamState = message.state;
+const depth = 3;
+const minimumWeightMagnitude = 9;
 
-   
+ async function publish(packet) {
+  const message = JSON.stringify(packet);
+  const messageInTrytes = Converter.asciiToTrytes(message);
+
+const transfers = [
+  {
+      value: 0,
+      address: root1,
+      message: messageInTrytes
+  }
+  ];
   
-    await Mam.attach(message.payload,root1, 3, 9);
-    aux = message.root;
-      
-      handleShow();
+  iota1.prepareTransfers(seed, transfers)
+      .then(trytes => {
+          return iota1.sendTrytes(trytes, depth, minimumWeightMagnitude);
+      })
+      .then(bundle => {
+          aux=bundle[0].hash;
+          handleShow();
+      })
+      .catch(err => {
+          console.error(err)
+      });
 
-    }
+     
+    }    
 
     const handleShow = () => {
 
@@ -102,7 +112,7 @@ const iota = new IOTA({ provider: 'https://nodes.devnet.iota.org:443' });
     };
 
 
-    async function enviardatos(encrypted) {
+   async function enviardatos(encrypted) {
       publish(encrypted);
 
     }

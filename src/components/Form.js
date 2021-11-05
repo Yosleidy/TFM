@@ -176,7 +176,7 @@ class Form extends Component {
           <CardActions className={`cta md-cell md-cell--12 ${showLoader ? 'hidden' : ''}`}>
           
             <Button secondary raised disabled={providerError || rootError} onClick={this.submit}>
-              Datos Cifrados
+              Ver Licitación
             </Button>
            
           </CardActions>

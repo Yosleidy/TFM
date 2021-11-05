@@ -1,11 +1,15 @@
 .header {
-  height: 140px;
+  height: 250px;
   display: flex;
   flex-direction: row;
-  background-image: linear-gradient(to right, rgb(123, 194, 195), rgb(128, 133, 191));
+  //background-image: linear-gradient(to right, rgb(123, 194, 195), rgb(128, 133, 191));
+  background-image: url("../images/shaking-hands-3091906-fondo.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  place-content: center;
  
   & > * {
-    width: 33%;
+    width: auto;
   }
 
   img.logo {
@@ -13,11 +17,11 @@
   }
 
   span {
-    font-size: 30px;
-    font-weight: 700;
-    color: #fff;
+    font-size: 50px;
+    font-weight: 900;
+    color: rgb(128, 128, 255);
     margin: auto 0;
-    display: flex;
+    display: block;
     justify-content: center;
   }
 

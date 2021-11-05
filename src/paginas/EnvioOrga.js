@@ -15,6 +15,7 @@ import {
 const moment = require('moment');
 var aux = '';
 
+
 class EnvioOrga extends Component {
 
 
@@ -64,15 +65,12 @@ class EnvioOrga extends Component {
 
     const MODE = 'public'; // public, private or restricted
     const SECURITYLEVEL = 3; // 1, 2 or 3
-    const seed =
-    'PUEOTSEITFEVEWCWBTSIZM9NKRGJEIMXTULBACGFRQK9IMGICLBKW9TTEVSDQMGWKBXPVCBMMCXWMNPDX';
-   //  Ininicializar MAM State
-    let mamState = Mam.init(iota, seed, SECURITYLEVEL);
+   
+    let mamState = Mam.init(iota, undefined, SECURITYLEVEL);
 
     // Establecer el modo del canal
   mamState = Mam.changeMode(mamState, MODE);
- 
-
+  
     async function publish(packet) {
 
       const trytes = iota.utils.toTrytes(JSON.stringify(packet));
@@ -81,11 +79,11 @@ class EnvioOrga extends Component {
 
       mamState = message.state;
 
-
-      // Adjuntar el payload.
+            // Adjuntar el payload.
       await Mam.attach(message.payload, message.address, 3, 9);
       
       aux = message.root;
+      
      
       handleShow();
       
