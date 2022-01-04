@@ -7,6 +7,7 @@ import List from './List';
 import Loader from './Loader';
 
 import Form from './Form';
+import ListOrg from './ListOrg';
 
 
 
@@ -54,7 +55,7 @@ class Recuperar extends Component {
           <div className={`loaderWrapper ${showLoader ? '' : 'hidden'}`}>
             <Loader showLoader={showLoader} />
           </div>
-          {messages.length > 0 ? <List messages={messages} /> : null}
+          {messages.length > 0 ? <ListOrg messages={messages} /> : null}
         </div>
       
         

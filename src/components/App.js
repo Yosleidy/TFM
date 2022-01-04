@@ -9,6 +9,8 @@ import Desencriptar from '../paginas/Desencriptar';
 import EnvioOrga from '../paginas/EnvioOrga';
 import Header from './Header';
 import Confirmacion from '../paginas/ConfirmacionOfertas';
+import Ver from '../paginas/MostrarLicitacion';
+import Resultado from '../paginas/Resultado';
 
   function App(){
 
@@ -25,6 +27,8 @@ import Confirmacion from '../paginas/ConfirmacionOfertas';
         < Route path="/Desencriptar" exact={true} component={Desencriptar}/>
         < Route path="/EnvioOrga" exact={true} component={EnvioOrga}/>
         < Route path="/Confirmacion" exact={true} component={Confirmacion}/>
+        < Route path="/Ver" exact={true} component={Ver}/>
+        < Route path="/Resultado" exact={true} component={Resultado}/>
          </div>
        </div>
       </Router>

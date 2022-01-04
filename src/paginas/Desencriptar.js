@@ -78,39 +78,39 @@ class Desencriptar extends Component {
                             
              
             
-              <TextField
+              <TextField style={{width: '85%', marginLeft: '5%' }}
                 ref={encryptedInformation => (this.encryptedInformation = encryptedInformation)}
                 id="encryptedInformation"
-                label="Información encriptada"
+                label="Información cifrada"
                 required
                 type="text"
                 error={this.encryptedInformation}
                 errorText="This field is required."
                 onChange={this.validate} />
 
-<TextField
-            ref={encryptkey => (this.encryptkey = encryptkey)}
-            id="encryptkey"
-            label="Contraseña"
-            required
-            type="password"
-            error={encryptkeyError}
-            errorText="This field is required."
-            onChange={this.validate}
-          />
+              <TextField style={{width: '85%', marginLeft: '5%' }}
+                ref={encryptkey => (this.encryptkey = encryptkey)}
+                id="encryptkey"
+                label="Contraseña para descifrar"
+                required
+                type="password"
+                error={encryptkeyError}
+                errorText="This field is required."
+                onChange={this.validate}
+              />
 
     </FocusContainer>
     <div>
             <CardActions className={`cta md-cell md-cell--12 ${showLoader ? 'hidden' : ''}`}>
   <Button secondary raised disabled={encryptkeyError || encryptedInformationError} onClick={this.uncrypt}>
-                Desencriptar
+                Descifrar
               </Button>
             </CardActions>
           </div>
           <Modal active={this.state.active} toggle={toggle}>
-          <h1 style={{ fontSize: 20 }} >Información encriptada:</h1>
+          <h1 style={{ fontSize: 20 }} >Información cifrada:</h1>
           <p style={{ overflowWrap: 'break-word' }}> {text}</p>
-          <h2 style={{ fontSize: 20 }} >Información desencriptada:</h2>
+          <h2 style={{ fontSize: 20 }} >Información descifrada:</h2>
           <p1 style={{ overflowWrap: 'break-word' }}> {aux}</p1>
         </Modal>
           </div>

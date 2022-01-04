@@ -7,7 +7,7 @@ return(
     <div className="otro bg-light">
     
     <ul>
-    <h1> Usuario </h1> 
+    <h1> Solicitante </h1> 
         <li> 
         <NavLink to="/" exact className="rounded py-2 w-100 d-inline-block px-3" activeClassName="active"><Faicons.FaFileExport className="me-2"/> Enviar</NavLink>
         </li> 
@@ -17,9 +17,11 @@ return(
         <li> 
         <NavLink to="/Recuperar" exact className="rounded py-2 w-100 d-inline-block px-3" activeClassName="active"><Faicons.FaFileImport className="me-2"/> Recuperar Licitaciones</NavLink>
         </li> 
+      
     </ul>
     <ul>
     <h1> Organismo </h1> 
+    <h1> Licitador </h1>
         <li> 
         <NavLink to="/EnvioOrga" exact className="rounded py-2 w-100 d-inline-block px-3" activeClassName="active"><Faicons.FaFileExport className="me-2"/> Publicar Licitación</NavLink>
         </li> 
@@ -28,6 +30,9 @@ return(
         </li>  
         <li> 
         <NavLink to="/Desencriptar" exact className="rounded py-2 w-100 d-inline-block px-3" activeClassName="active"> <Faicons.FaKey className="me-2"/> Evaluación de las Ofertas</NavLink>
+        </li> 
+        <li> 
+        <NavLink to="/Resultado" exact className="rounded py-2 w-100 d-inline-block px-3" activeClassName="active"> <Faicons.FaKey className="me-2"/> Publicar oferta ganadora</NavLink>
         </li> 
     </ul>
     </div>

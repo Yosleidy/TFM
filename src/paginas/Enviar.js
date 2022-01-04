@@ -23,9 +23,9 @@ class Enviar extends Component {
 
   state = {
     nameError: true,
-    lastnameError: true,
+    
     academictitleError: true,
-    yearsexperienceError: true,
+    
     priceError: true,
     encryptkeyError: true,
     repetirencryptkeyError: true,
@@ -45,17 +45,17 @@ class Enviar extends Component {
     event.preventDefault();
     const newCustomer = {};
     const nombre = this.name.value;
-    const apellidos = this.lastname.value;
-    const años = this.yearsexperience.value;
+    
+    
     const precio = this.price.value;
     const titulación = this.academictitle.value;
     const dateTime = moment().utc(+2).format('DD/MM/YYYY hh:mm:ss');
 
     newCustomer['nombre'] = nombre;
-    newCustomer['apellidos'] = apellidos;
-    newCustomer['años_experiencia'] = años;
+    
+    
     newCustomer['precio'] = precio;
-    newCustomer['titulación'] = titulación;
+    newCustomer['documentación'] = titulación;
     newCustomer['fecha_de_publicación']=dateTime;
     const root1=this.root.value;
     const password = this.encryptkey.value;
@@ -130,21 +130,21 @@ const transfers = [
   validate = () => {
     this.setState({
       nameError: !this.name.value,
-      lastnameError: !this.lastname.value,
+      
       academictitleError: !this.academictitle.value,
-      yearsexperienceError: !this.yearsexperience.value,
+      
       priceError: !this.price.value,
       rootError: !this.root.value,
       encryptkeyError: !this.encryptkey.value,
       repetirencryptkeyError: !(this.repetirencryptkey.value === this.encryptkey.value),
     });
 
-    return !this.name.value || !this.root.value || !this.lastname.value || !this.academictitle.value || !this.yearsexperience.value || !this.price.value || !this.encryptkey.value || !this.repetirencryptkey.value;
+    return !this.name.value || !this.root.value  || !this.academictitle.value || !this.price.value || !this.encryptkey.value || !this.repetirencryptkey.value;
   };
 
 
   render() {
-    const { nameError, lastnameError, rootError, academictitleError, yearsexperienceError, priceError, encryptkeyError, repetirencryptkeyError } = this.state;
+    const { nameError, rootError, academictitleError, priceError, encryptkeyError, repetirencryptkeyError } = this.state;
     const { showLoader } = this.props;
     const toggle = () => {
       this.setState({ active: false });
@@ -159,55 +159,39 @@ const transfers = [
           onSubmit={this.submit}
           aria-labelledby="iota-mam-explorer"
         >
-          <TextField
+          <TextField style={{width: '85%', marginLeft: '5%' }}
             ref={name => (this.name = name)}
             id="name"
-            label="Nombre"
+            label="Nombre y apellidos del solicitante o entidad licitadora"
             required
             type="text"
             error={nameError}
             errorText="This field is required."
             onChange={this.validate} />
-          <TextField
-            ref={lastname => (this.lastname = lastname)}
-            id="lastname"
-            label="Apellidos"
-            required
-            type="text"
-            error={lastnameError}
-            errorText="This field is required."
-            onChange={this.validate} />
-          <TextField
+        
+          <TextField style={{width: '40%', marginLeft: '5%' }}
             ref={academictitle => (this.academictitle = academictitle)}
             id="academictitle"
-            label="Titulación"
+            label="Documentación"
             required
             type="text"
             error={academictitleError}
             errorText="This field is required."
             onChange={this.validate} />
-          <TextField
-            ref={yearsexperience => (this.yearsexperience = yearsexperience)}
-            id="yearsexperience"
-            label="Años de experiencia"
-            required
-            type="number"
-            error={yearsexperienceError}
-            errorText="This field is required."
-            onChange={this.validate} />
-          <TextField
+         
+          <TextField style={{width: '17.5%', marginLeft: '5%' }}
             ref={price => (this.price = price)}
             id="price"
-            label="Precio"
+            label="Importe"
             required
             type="number"
             error={priceError}
             errorText="This field is required."
             onChange={this.validate} />
-          <TextField
+          <TextField style={{width: '40%', marginLeft: '5%' }}
             ref={encryptkey => (this.encryptkey = encryptkey)}
             id="encryptkey"
-            label="Contraseña"
+            label="Contraseña para cifrar la información"
             required
             type="password"
             error={encryptkeyError}
@@ -215,7 +199,7 @@ const transfers = [
             onChange={this.validate} />
 
 
-          <TextField
+          <TextField style={{width: '40%', marginLeft: '5%' }}
             ref={repetirencryptkey => (this.repetirencryptkey = repetirencryptkey)}
             id="repetirencryptkey"
             label="Repetir Contraseña"
@@ -226,10 +210,10 @@ const transfers = [
             onChange={this.validate}
 
           />
-<TextField
+          <TextField style={{width: '85%', marginLeft: '5%' }}
             ref={root => (this.root = root)}
             id="root"
-            label="Root de la convocatoria"
+            label="Identificador de la convocatoria"
             required
             type="text"
             error={rootError}
@@ -242,7 +226,7 @@ const transfers = [
 
         <div>
           <CardActions className={`cta md-cell md-cell--12 ${showLoader ? 'hidden' : ''}`}>
-            <Button secondary raised disabled={this.state.nameError || this.state.lastnameError || this.state.academictitleError || this.state.yearsexperienceError || this.state.priceError || this.state.encryptkeyError || this.state.repetirencryptkeyError || this.state.rootError} onClick={this.publicIOTA}>
+            <Button secondary raised disabled={this.state.nameError || this.state.academictitleError || this.state.yearsexperienceError || this.state.priceError || this.state.encryptkeyError || this.state.repetirencryptkeyError || this.state.rootError} onClick={this.publicIOTA}>
               Enviar Información
             </Button>
           </CardActions>

@@ -128,17 +128,17 @@ class Form extends Component {
 
 
 
-          <TextField
+          <TextField style={{width: '85%', marginLeft: '5%' }}
             ref={root => (this.root = root)}
             id="root"
-            label="Root"
+            label="Identificador de la convocatoria"
             required
             type="text"
             error={rootError}
             errorText="This field is required."
             onChange={this.validate}
           />
-          <Autocomplete
+          <Autocomplete style={{width: '40%', marginLeft: '5%' }}
             ref={provider => (this.provider = provider)}
             id="provider"
             className="toolbar-search"
@@ -154,7 +154,7 @@ class Form extends Component {
             dataValue="value"
             listClassName="toolbar-search__list"
           />
-          <SelectField
+          <SelectField style={{width: '40%', marginLeft: '5%' }}
             ref={mode => (this.mode = mode)}
             id="mode"
             label="Mode"

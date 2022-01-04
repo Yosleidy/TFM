@@ -106,7 +106,7 @@ const transfers = [
 
     return (
         <div className="formWrapper">
-          <FocusContainer
+          <FocusContainer 
             focusOnMount
             containFocus
             component="form"
@@ -114,19 +114,19 @@ const transfers = [
             onSubmit={this.submit}
             aria-labelledby="iota-mam-explorer"
           >
-            <TextField
+            <TextField style={{width: '85%', marginLeft: '5%' }}
               ref={name => (this.name = name)}
               id="name"
-              label="root de la convocatoria"
+              label="Identificador de la convocatoria"
               required
               type="text"
               error={nameError}
               errorText="This field is required."
               onChange={this.validate} />
-    <TextField
+    <TextField style={{width: '40%', marginLeft: '5%' }}
     ref={encryptkey => (this.encryptkey = encryptkey)}
     id="encryptkey"
-    label="Contraseña"
+    label="Contraseña para descifrar"
     required
     type="password"
     error={encryptkeyError}
@@ -134,7 +134,7 @@ const transfers = [
     onChange={this.validate} />
 
 
-  <TextField
+  <TextField style={{width: '40%', marginLeft: '5%' }}
     ref={repetirencryptkey => (this.repetirencryptkey = repetirencryptkey)}
     id="repetirencryptkey"
     label="Repetir Contraseña"
@@ -145,10 +145,10 @@ const transfers = [
     onChange={this.validate}
 
   />
-  <TextField
+  <TextField style={{width: '85%', marginLeft: '5%' }}
             ref={root => (this.root = root)}
             id="root"
-            label="Hash de la oferta"
+            label="Identificador de la oferta"
             required
             type="text"
             error={rootError}
