@@ -61,40 +61,26 @@ class EnvioOrga extends Component {
      newCustomer['fecha de publicación de la convocatoria']=dateTime;
      newCustomer['fecha fin para presentar ofertas'] = fechafin;
      newCustomer['fecha de presentación de la oferta ganadora']=presentaofertas;
-    
+   
+  const IOTA = require('iota.lib.js');
+  const Mam = require('@iota/mam');
+ const iota = new IOTA({ provider: 'https://nodes.devnet.iota.org:443' });
+ const MODE = 'public'; // public, private or restricted
+   const SECURITYLEVEL = 3; // 1, 2 or 3
+    let mamState = Mam.init(iota, undefined, SECURITYLEVEL);
+ mamState = Mam.changeMode(mamState, MODE);
 
- //  const IOTA = require('iota.lib.js');
-//   const Mam = require('@iota/mam');
-//   const iota = new IOTA({ provider: 'https://nodes.devnet.iota.org:443' });
-//   const MODE = 'public'; // public, private or restricted
- //   const SECURITYLEVEL = 3; // 1, 2 or 3
- //    let mamState = Mam.init(iota, undefined, SECURITYLEVEL);
-//  mamState = Mam.changeMode(mamState, MODE);
-const streams = require('@iota/streams/node');
 
-let node = "https://chrysalis-nodes.iota.org/";
-
-// Options include: (node-url, local pow)
-let options = new streams.SendOptions(node, true);
-
-let author = new streams.Author("Unique Seed Here", options.clone(), streams.ChannelType.MultiBranch );
-
-// Response formatting: {link, sequence link, msg }
-let response = author.clone().send_announce();
-
-let ann_link = response.link;
-
-alert("Channel Announcement at: ", ann_link.toString());
 
 
 
     async function publish(packet) {
 
-//const trytes = iota.utils.toTrytes(JSON.stringify(packet));
-  //    const message = Mam.create(mamState, trytes);
-//   mamState = message.state;
-// await Mam.attach(message.payload, message.address, 3, 9);
- //aux = message.address;
+const trytes = iota.utils.toTrytes(JSON.stringify(packet));
+     const message = Mam.create(mamState, trytes);
+   mamState = message.state;
+ await Mam.attach(message.payload, message.address, 3, 9);
+ aux = message.address;
        handleShow();
      
     }
@@ -117,6 +103,7 @@ alert("Channel Announcement at: ", ann_link.toString());
     }
 
    enviardatos(newCustomer);
+   
 
 
   };

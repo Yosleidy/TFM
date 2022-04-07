@@ -17,9 +17,19 @@ import CryptoJS from 'crypto-js';
 const moment = require('moment');
 
 var aux = '';
+
+
+const { ClientBuilder } = import('@iota/client');
+
+// client will connect to testnet by default
+const client = new ClientBuilder().localPow(true).build();
+
+client.getInfo().then(console.log).catch(console.error);
+
+
 class Enviar extends Component {
 
-
+  
 
   state = {
     nameError: true,
@@ -45,15 +55,11 @@ class Enviar extends Component {
     event.preventDefault();
     const newCustomer = {};
     const nombre = this.name.value;
-    
-    
     const precio = this.price.value;
     const titulación = this.academictitle.value;
     const dateTime = moment().utc(+2).format('DD/MM/YYYY hh:mm:ss');
 
     newCustomer['nombre'] = nombre;
-    
-    
     newCustomer['precio'] = precio;
     newCustomer['documentación'] = titulación;
     newCustomer['fecha_de_publicación']=dateTime;
@@ -62,67 +68,32 @@ class Enviar extends Component {
     const text = JSON.stringify(newCustomer);
 
    
-
-    const seed =
-    'REYOTSEITFEVEWCWBTSIZM9NKRGJEIMXTULBACGFRQK9IMGICLBKW9TTEVSDQMGWKBXPVCBMMCXWMNPDX';
     
-    
-    
-
-
-const Converter = require('@iota/converter');
-const Iota = require('@iota/core');
-const iota1 = Iota.composeAPI({provider:'https://nodes.devnet.iota.org:443'});
-
-
-const depth = 3;
-const minimumWeightMagnitude = 9;
-
- async function publish(packet) {
-  const message = JSON.stringify(packet);
-  const messageInTrytes = Converter.asciiToTrytes(message);
-
-const transfers = [
-  {
-      value: 0,
-      address: root1,
-      message: messageInTrytes
-  }
-  ];
-  
-  iota1.prepareTransfers(seed, transfers)
-      .then(trytes => {
-          return iota1.sendTrytes(trytes, depth, minimumWeightMagnitude);
-      })
-      .then(bundle => {
-          aux=bundle[0].hash;
-          handleShow();
-      })
-      .catch(err => {
-          console.error(err)
-      });
-
-     
-    }    
-
-    const handleShow = () => {
-
-      this.setState({ active: true });
       
-    };
+  
+          
+       
+  
+
+ const handleShow = () => {
+
+    this.setState({ active: true });
+    
+ };
 
 
-   async function enviardatos(encrypted) {
-      publish(encrypted);
-
-    }
-
+    
+     
+    
     const cifrar = (text, password) => {
-      var encrypted = CryptoJS.AES.encrypt(text, password).toString();
-      enviardatos(encrypted);
+     var encrypted = CryptoJS.AES.encrypt(text, password).toString();
+     // enviardatos(encrypted);
+      aux='todo bien';
+      
+      handleShow();
 
     };
-    cifrar(text, password);
+   cifrar(text, password);
 
 
   };
@@ -188,6 +159,7 @@ const transfers = [
             error={priceError}
             errorText="This field is required."
             onChange={this.validate} />
+            
           <TextField style={{width: '40%', marginLeft: '5%' }}
             ref={encryptkey => (this.encryptkey = encryptkey)}
             id="encryptkey"

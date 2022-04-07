@@ -26,7 +26,7 @@ return(
         <NavLink to="/EnvioOrga" exact className="rounded py-2 w-100 d-inline-block px-3" activeClassName="active"><Faicons.FaFileExport className="me-2"/> Publicar Licitación</NavLink>
         </li> 
         <li> 
-        <NavLink to={{ pathname: "https://explorer.iota.org/legacy-devnet" }} target="_blank" exact className="rounded py-2 w-100 d-inline-block px-3" activeClassName="active"><Faicons.FaFileImport className="me-2"/> Recuperar Ofertas</NavLink>
+        <NavLink to={{ pathname: "https://explorer.iota.org/devnet" }} target="_blank" exact className="rounded py-2 w-100 d-inline-block px-3" activeClassName="active"><Faicons.FaFileImport className="me-2"/> Recuperar Ofertas</NavLink>
         </li>  
         <li> 
         <NavLink to="/Desencriptar" exact className="rounded py-2 w-100 d-inline-block px-3" activeClassName="active"> <Faicons.FaKey className="me-2"/> Evaluación de las Ofertas</NavLink>
