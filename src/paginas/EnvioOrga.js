@@ -51,62 +51,42 @@ class EnvioOrga extends Component {
     const presentaofertas= this.presentación.value;
     const fechafin = this.fechafin.value;
     const descripcion = this.descripcion.value;
-   const presupuesto=this.price.value;
+    const presupuesto=this.price.value;
     const dateTime = moment().utc(+2).format('DD/MM/YYYY hh:mm:ss');
 
     newCustomer['nombre del organismo licitador'] = nombre;
     newCustomer['nombre de la licitación'] = nombreLic;
     newCustomer['presupuesto base de licitación']=presupuesto;
     newCustomer['descripción de la licitación'] = descripcion;
-     newCustomer['fecha de publicación de la convocatoria']=dateTime;
-     newCustomer['fecha fin para presentar ofertas'] = fechafin;
-     newCustomer['fecha de presentación de la oferta ganadora']=presentaofertas;
+    newCustomer['fecha de publicación de la convocatoria']=dateTime;
+    newCustomer['fecha fin para presentar ofertas'] = fechafin;
+    newCustomer['fecha de presentación de la oferta ganadora']=presentaofertas;
    
   const IOTA = require('iota.lib.js');
   const Mam = require('@iota/mam');
- const iota = new IOTA({ provider: 'https://nodes.devnet.iota.org:443' });
- const MODE = 'public'; // public, private or restricted
-   const SECURITYLEVEL = 3; // 1, 2 or 3
-    let mamState = Mam.init(iota, undefined, SECURITYLEVEL);
- mamState = Mam.changeMode(mamState, MODE);
+  const iota = new IOTA({ provider: 'https://nodes.devnet.iota.org:443' });
+  const MODE = 'public'; // public, private or restricted
+  const SECURITYLEVEL = 3; // 1, 2 or 3
+  let mamState = Mam.init(iota, undefined, SECURITYLEVEL);
+  mamState = Mam.changeMode(mamState, MODE);
 
-
-
-
-
-    async function publish(packet) {
-
-const trytes = iota.utils.toTrytes(JSON.stringify(packet));
+async function publish(packet) {
+     const trytes = iota.utils.toTrytes(JSON.stringify(packet));
      const message = Mam.create(mamState, trytes);
-   mamState = message.state;
- await Mam.attach(message.payload, message.address, 3, 9);
- aux = message.address;
+     mamState = message.state;
+     await Mam.attach(message.payload, message.address, 3, 9);
+     aux = message.address;
        handleShow();
-     
-    }
-    
+      }
     const handleShow = () => {
-      
       this.setState({ active: true });
-    
-         
+            
     };
-   
-    
-
-
-  
-
-    async function enviardatos(text) {
+   async function enviardatos(text) {
       publish(text);
-
-    }
-
+   }
    enviardatos(newCustomer);
-   
-
-
-  };
+    };
 
   validate = () => {
     this.setState({
